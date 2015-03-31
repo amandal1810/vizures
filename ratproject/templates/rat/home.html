@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+
+    <head>
+        <title>RAT</title>
+    </head>
+
+    <body>
+        <form action='{% url "process" %}' method='post'>
+            {% csrf_token %}
+            <label for='text'>Enter you roll number : </label>
+            <input type='text' name='roll' />
+            <!-- always use name='roll' and not id='roll' -->
+            <input type='submit' value='SUBMIT' />
+        </form>
+    </body>
+
+</html>

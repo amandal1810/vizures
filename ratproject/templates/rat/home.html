@@ -7,9 +7,17 @@
     </head>
 
     <body>
+
+    <a href="/college_ranking">College Ranking</a><br/>
+    <a href="/department_ranking">Department Ranking</a><br/>
+    <a href="/personal_profile">Your Personal Profile</a><br/>
+    <br/>
+    <br/>
+    <br/>
+
         <form action='{% url "process" %}' method='post'>
             {% csrf_token %}
-            <label for='text'>Enter you roll number : </label>
+            <label for='text'>Enter you registration number : </label>
             <input type='text' name='roll' />
             <!-- always use name='roll' and not id='roll' -->
             <input type='submit' value='SUBMIT' />

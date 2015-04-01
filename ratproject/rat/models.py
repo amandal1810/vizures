@@ -10,7 +10,7 @@ class Student(models.Model):
     cgpa = models.DecimalField(max_digits=4,decimal_places=2)
     
     def __unicode__(self):
-        return self.name+" "+self.roll+" "+str(self.cgpa)
+        return str(self.reg_no)+" "+self.name+" "+self.roll_no+" "+str(self.cgpa)
     
 class Semester(models.Model):
     sem = models.IntegerField(primary_key=True)

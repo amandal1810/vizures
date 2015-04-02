@@ -14,16 +14,34 @@
                     <option value="CE">Civil Engineering</option>
                     <option value="BT">Biotechnology</option>
                     <option value="EE">Electrical Engineering</option>
-                    <option value="MME">Metallurgical and Materials Engineering</option>
+                    <option value="MM">Metallurgical and Materials Engineering</option>
                     <option value="CH">Chemical Engineering</option>
                 </select>
                 <input type='submit' value='SUBMIT' />
         </form>
 
-<ol>
+{% if ranks %}
+<h1> {{department}} </h1>
+
+<table border="1" style="100%">
+    <tr>
+        <th>Rank</th>
+        <th>Registration Number</th>
+        <th>Name</th>
+        <th>Roll Number</th>
+        <th>CGPA</th>
+    </tr>
     {% for rank in ranks %}
-    <li>{{ rank }}</li>
+    <tr>
+        <td> {{rank.rank}} </td>
+        <td> {{ rank.reg_no }} </td>
+        <td> {{ rank.name }} </td>
+        <td> {{ rank.roll_no }} </td>
+        <td> {{ rank.cgpa }} </td>
+    </tr>
     {% endfor %}
-</ol>
+</table>
+
+{% endif %}
 
 {% endblock %}

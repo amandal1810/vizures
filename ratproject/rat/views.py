@@ -29,6 +29,10 @@ def college_ranking(request):
     return render(request,'rat/college_ranking.html',dic)
 
 def department_ranking(request):
+    
+    def get_student_obj(i,rk):
+        return {'rank':rk+1,'reg_no':i.reg_no, 'name': i.name, 'roll_no':i.roll_no, 'cgpa': i.cgpa}
+    
     inp = request.POST.get('department')
     print "department",inp
     which_department= inp
@@ -39,14 +43,15 @@ def department_ranking(request):
         return render(request,'rat/department_ranking.html',dic)
     
     regex= '\d\d/'+which_department+'/*'
-    ranks= [str(i) for i in Student.objects.filter(roll_no__regex= regex).order_by('-cgpa')]
+    ranks= [ get_student_obj(i,rk) for rk,i in enumerate(Student.objects.filter(roll_no__regex= regex).order_by('-cgpa'))]
+    
     if ranks== 'CH':
         regex= '\d\d/CHE/*'
-        ranks+=  [str(i) for i in Student.objects.filter(roll_no__regex= regex).order_by('-cgpa')]
+        ranks+=  [ get_student_obj(i,rk) for rk,i in enumerate(Student.objects.filter(roll_no__regex= regex).order_by('-cgpa'))]
     #html= '<br>'.join(ranks)
     #html = '<ol>'+ html + '</ol>'
     #return HttpResponse(html)
-    dic = {'ranks': ranks}
+    dic = {'ranks': ranks, 'department': which_department}
     return render(request,'rat/department_ranking.html',dic)
 
 def personal_profile(request):

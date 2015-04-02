@@ -2,10 +2,16 @@ from django.shortcuts import render
 from rat.models import Student
 from django.http import HttpResponse
 import datetime
+from django.core.urlresolvers import reverse
+
 # Create your views here.
 
 def home(request):
     return render(request,'rat/home.html',{})
+
+def get_absolute_url(self): 
+    """Construct the absolute URL for this Item."""
+    return reverse('project.app.views.view_name', None, [str(self.id)])
 
 def process(request):
     inp = request.POST.get('roll')
@@ -14,18 +20,34 @@ def process(request):
     return render(request,'rat/result.html', dic)
 
 def college_ranking(request):    
-    ranks= [str('<li>')+str(i)+str('</li>') for i in Student.objects.order_by('-cgpa').all()]
+    ranks= [str(i) for i in Student.objects.order_by('-cgpa').all()]
     print type(ranks[0]),ranks[0]
-    html= '<br>'.join(ranks)
-    html = '<ol>'+ html + '</ol>'
-    return HttpResponse(html)
+    #html= '<br>'.join(ranks)
+    #html = '<ol>'+ html + '</ol>'
+    #return HttpResponse(html)
+    dic = {'ranks': ranks}
+    return render(request,'rat/college_ranking.html',dic)
 
 def department_ranking(request):
-    which_department= 'CSE'
-    ranks= [str('<li>')+str(i)+str('</li>') for i in Student.objects.filter(roll_no__regex=r'\d\d/CSE/*').order_by('-cgpa')]
-    html= '<br>'.join(ranks)
-    html = '<ol>'+ html + '</ol>'
-    return HttpResponse(html)
+    inp = request.POST.get('department')
+    print "department",inp
+    which_department= inp
+    
+    if which_department== None:
+        #which_department= 'CS'
+        dic={'ranks':[]}
+        return render(request,'rat/department_ranking.html',dic)
+    
+    regex= '\d\d/'+which_department+'/*'
+    ranks= [str(i) for i in Student.objects.filter(roll_no__regex= regex).order_by('-cgpa')]
+    if ranks== 'CH':
+        regex= '\d\d/CHE/*'
+        ranks+=  [str(i) for i in Student.objects.filter(roll_no__regex= regex).order_by('-cgpa')]
+    #html= '<br>'.join(ranks)
+    #html = '<ol>'+ html + '</ol>'
+    #return HttpResponse(html)
+    dic = {'ranks': ranks}
+    return render(request,'rat/department_ranking.html',dic)
 
 def personal_profile(request):
     return HttpResponse('personal_profile')

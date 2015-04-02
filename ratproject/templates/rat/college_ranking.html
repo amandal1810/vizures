@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %} Result Visualization and Analysis{% endblock %}
+
+{% block content %}
+<ol>
+    {% for rank in ranks %}
+    <li>{{ rank }}</li>
+    {% endfor %}
+</ol>
+
+{% endblock %}

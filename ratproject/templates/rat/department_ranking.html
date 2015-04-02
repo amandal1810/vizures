@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %} Result Visualization and Analysis{% endblock %}
+
+{% block content %}
+
+<form action='{% url "department_ranking" %}' method='post'>
+                {% csrf_token %}
+                <select name='department'>
+                    <option value="CS">Computer Science and Engineering</option>
+                    <option value="EC">Electronics and Communications Engineering</option>
+                    <option value="IT">Information Technology</option>
+                    <option value="ME">Mechanical Engineering</option>
+                    <option value="CE">Civil Engineering</option>
+                    <option value="BT">Biotechnology</option>
+                    <option value="EE">Electrical Engineering</option>
+                    <option value="MME">Metallurgical and Materials Engineering</option>
+                    <option value="CH">Chemical Engineering</option>
+                </select>
+                <input type='submit' value='SUBMIT' />
+        </form>
+
+<ol>
+    {% for rank in ranks %}
+    <li>{{ rank }}</li>
+    {% endfor %}
+</ol>
+
+{% endblock %}

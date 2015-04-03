@@ -3,10 +3,48 @@
 {% block title %} Result Visualization and Analysis{% endblock %}
 
 {% block content %}
-<ol>
+    
+    {% if ranks %}
+
+<h1> College Ranking </h1>
+
+<table border="1" style="100%">
+    <tr>
+        <th>Rank</th>
+        <th>Registration Number</th>
+        <th>Name</th>
+        <th>Roll Number</th>
+        <th>CGPA</th>
+    </tr>
     {% for rank in ranks %}
-    <li>{{ rank }}</li>
+    <tr>
+        <td> {{rank.rank}} </td>
+        <td> {{ rank.reg_no }} </td>
+        <td> {{ rank.name }} </td>
+        <td> {{ rank.roll_no }} </td>
+        <td> {{ rank.cgpa }} </td>
+    </tr>
     {% endfor %}
-</ol>
+</table>
+{% endif %}
+
+<br/>
+<br/>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if ranks.has_previous %}
+            <input type="button" name="b1" value="prev" onclick="location.href='?page={{ ranks.previous_page_number }}'">
+        {% endif %}
+
+        <span class="current">
+            Page {{ ranks.number }} of {{ ranks.paginator.num_pages }}.
+        </span>
+
+        {% if ranks.has_next %}
+            <input type="button" name="b1" value="next" onclick="location.href='?page={{ ranks.next_page_number }}'">
+        {% endif %}
+    </span>
+</div>
 
 {% endblock %}

@@ -3,15 +3,16 @@ from rat.models import Student
 from django.http import HttpResponse
 import datetime
 from django.core.urlresolvers import reverse
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 # Create your views here.
 
 def home(request):
     return render(request,'rat/home.html',{})
 
-def get_absolute_url(self): 
-    """Construct the absolute URL for this Item."""
-    return reverse('project.app.views.view_name', None, [str(self.id)])
+
+def get_student_obj(i,rk):
+        return {'rank':rk+1,'reg_no':i.reg_no, 'name': i.name, 'roll_no':i.roll_no, 'cgpa': i.cgpa}
 
 def process(request):
     inp = request.POST.get('roll')
@@ -19,19 +20,25 @@ def process(request):
     dic = {'name':data.name,'roll':data.reg_no,'cgpa':data.cgpa}
     return render(request,'rat/result.html', dic)
 
-def college_ranking(request):    
-    ranks= [str(i) for i in Student.objects.order_by('-cgpa').all()]
-    print type(ranks[0]),ranks[0]
-    #html= '<br>'.join(ranks)
-    #html = '<ol>'+ html + '</ol>'
-    #return HttpResponse(html)
-    dic = {'ranks': ranks}
+def college_ranking(request):
+    rk=0
+    ranks= [get_student_obj(i,rk) for rk,i in enumerate(Student.objects.order_by('-cgpa').all())]
+    paginator = Paginator(ranks,30)
+    page= request.GET.get('page')
+    try:
+        rank_page = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        rank_page = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        rank_page = paginator.page(paginator.num_pages)
+
+    
+    dic = {"ranks": rank_page}
     return render(request,'rat/college_ranking.html',dic)
 
 def department_ranking(request):
-    
-    def get_student_obj(i,rk):
-        return {'rank':rk+1,'reg_no':i.reg_no, 'name': i.name, 'roll_no':i.roll_no, 'cgpa': i.cgpa}
     
     inp = request.POST.get('department')
     print "department",inp
@@ -48,9 +55,6 @@ def department_ranking(request):
     if ranks== 'CH':
         regex= '\d\d/CHE/*'
         ranks+=  [ get_student_obj(i,rk) for rk,i in enumerate(Student.objects.filter(roll_no__regex= regex).order_by('-cgpa'))]
-    #html= '<br>'.join(ranks)
-    #html = '<ol>'+ html + '</ol>'
-    #return HttpResponse(html)
     dic = {'ranks': ranks, 'department': which_department}
     return render(request,'rat/department_ranking.html',dic)
 

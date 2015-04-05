@@ -19,13 +19,6 @@
         <br/>
         <br/>
         
-        <form action='{% url "process" %}' method='post'>
-            {% csrf_token %}
-            <label for='text'>Enter you registration number : </label>
-            <input type='text' name='roll' />
-            <!-- always use name='roll' and not id='roll' -->
-            <input type='submit' value='SUBMIT' />
-        </form>
     </body>
 
 </html>

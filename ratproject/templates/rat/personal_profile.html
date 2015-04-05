@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %} Personal Profile {% endblock %}
+
+{% block content %}
+
+<form action='{% url "personal" %}' method='post'>
+            {% csrf_token %}
+            <label for='text'>Enter you registration number : </label>
+            <input type='text' name='roll' />
+            <!-- always use name='roll' and not id='roll' -->
+            <input type='submit' value='SUBMIT' />
+</form>
+
+
+{% endblock %}

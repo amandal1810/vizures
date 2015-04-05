@@ -1,17 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="style.css" />
-    <title>{% block title %}My amazing site{% endblock %}</title>
+    <title>{% block title %}My amazing site{% endblock %}</title>   
 </head>
 
+<style>
+table {
+    border-collapse: collapse;
+}
+
+table, td, th {
+    border: 1px solid black;
+}
+</style>
+
 <body>
+    {% block script %}
+    {% endblock %}
+    
     <div id="sidebar">
         {% block sidebar %}
         <ul>
             <li><a href="/home">Home</a></li>
             <li><a href="/college_ranking">College Ranking</a></li>
             <li><a href="/department_ranking">Department Ranking</a></li>
+            <li><a href="/personal_profile">Personal Profile</a></li>
         </ul>
         {% endblock %}
     </div>

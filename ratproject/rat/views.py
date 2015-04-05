@@ -1,11 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, render_to_response
 from rat.models import Student
 from django.http import HttpResponse
 import datetime
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-# Create your views here.
+#related to data
 
 def home(request):
     return render(request,'rat/home.html',{})
@@ -14,7 +14,7 @@ def home(request):
 def get_student_obj(i,rk):
         return {'rank':rk+1,'reg_no':i.reg_no, 'name': i.name, 'roll_no':i.roll_no, 'cgpa': i.cgpa}
 
-def process(request):
+def personal(request):
     inp = request.POST.get('roll')
     data = Student.objects.get(reg_no=inp)
     dic = {'name':data.name,'roll':data.reg_no,'cgpa':data.cgpa}
@@ -59,7 +59,8 @@ def department_ranking(request):
     return render(request,'rat/department_ranking.html',dic)
 
 def personal_profile(request):
-    return HttpResponse('personal_profile')
+    #return HttpResponse('personal_profile')
+    return render(request,'rat/personal_profile.html',{})
 
 # def current_datetime(request):
 #     now = datetime.datetime.now()

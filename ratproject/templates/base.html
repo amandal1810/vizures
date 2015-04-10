@@ -1,36 +1,116 @@
+{% load staticfiles %}
+
+
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>{% block title %}My amazing site{% endblock %}</title>   
-</head>
 
-<style>
-table {
-    border-collapse: collapse;
-}
+<html class="full">
+        <head>
+            <title>{% block title %}My amazing site{% endblock %}</title>
+            <meta name = "viewport" content = "width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" type="text/css" href = "{% static 'rat/css/bootstrap.css' %}"/>
+            <script src="{% static 'rat/js/jquery.js' %}"></script>
+            <script src="{% static 'rat/js/bootstrap.min.js' %}"></script>
+            <link rel="stylesheet" href={% static '/rat/css/mainstyle.css' %}>
+            <link rel="stylesheet" href={% static '/rat/css/sb-admin.css' %}>
+        </head>
+	
+	<body>
+	   <header>
 
-table, td, th {
-    border: 1px solid black;
-}
-</style>
+        <!-- Navigation -->
+              <div class="navbar navbar-default navbar-fixed-top">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            
+                  <div class="container">
+                  	<div class="navbar-header navbar-left">
+                		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="navbar-ex1-collapse">
+                    			<span class="sr-only">Toggle navigation</span>
+                    			<span class="icon-bar"></span>
+                    			<span class="icon-bar"></span>
+                    			<span class="icon-bar"></span>
+                		</button>
+                		<a class="navbar-brand" href="/home.html"><strong>VIZURES</strong></a>
+            		</div>
+                    <div class="collapse navbar-collapse navbar-ex1-collapse">
+                		<ul class="nav navbar-nav pull-left">
+                		
+                		<li class="active">
+                       			 <a href="/home.html"><i class="fa fa-fw fa-dashboard"></i><strong>Home</strong></a>
+                   	        </li>
+                   	        <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Department<span class="caret"></span></a>
+          				<ul class="dropdown-menu">
+           				 <li>
+                                		<a href="/department_ranking/BT/">Biotechnology</a>
+                            		</li>
+                             		<li>
+                                		<a href="/department_ranking/CH/">Chemical Engineering</a>
+                            		</li>
+                             		<li>
+                                		<a href="/department_ranking/CE/">Civil Engineering</a>
+                            		</li>
+                             		<li>
+                                		<a href="/department_ranking/CS/">Computer Science and Engineering</a>
+                            		</li>
+                             		<li>
+                                		<a href="/department_ranking/EE/">Electrical Engineering</a>
+                            		</li>
+                             		<li>
+                                		<a href="/department_ranking/EC/">Electronics and Communication Engineering</a>
+                            		</li>
+                             		<li>
+                                		<a href="/department_ranking/IT">Information Technology</a>
+                            		</li>
+                             		<li>
+                                		<a href="/department_ranking/ME/">Mechanical Engineering</a>
+                            		</li>
+                            		<li>
+                                		<a href="/department_ranking/MM/">Metallurgy</a>
+                            		</li>
+         			        </ul>
+      			        </li>
+                    		<li>
+                        		<a href="/college_ranking/"><strong>University</strong></a>
+                    		</li>
+                    		<li>
+                       		        <a href="/personal_profile/"><strong>Personal Profile</strong></a>
+                       		</li>
+                       		</ul>
+                       		</ul>
+                       		<ul class="nav navbar-nav pull-right">
+                       		<li>
+                       		        <a href="#"><strong>About</strong></a>
+                       		</li>
+                       		<li>
+                       		        <a href="#"><strong>Contact Us</strong></a>
+                       		</li>
+                       		
+                       		</ul>
+                        <!--   <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+                                <span class="sr-only">Toggle navigation</span>
+                    		<span class="icon-bar"></span>
+                    		<span class="icon-bar"></span>
+                    		<span class="icon-bar"></span>
+                	   </button>
+                           <a class="navbar-brand" href="index.html">RAT</a><!--Shows the brand or the website name-->
+                     </div>
+                   <!--  <div class="collapse navbar-collapse" id="navbar-collapse">-->
+          		            
+                     </div>   
+            	  </div>
+            	  </header>
+            	  	   <!-- Jumbotron -->
+	   	
+	   	<!--	<h1>Result Analysis Tool</h1>
+	   		<h3>Want to know your rank in your class or your year? Want a detailed analysis of your performance in academics? Give it a try!</h3> -->
+	   		
+	   	
+            <div id="content">
+            {% block content %}{% endblock %}
+            </div>
+           
 
-<body>
-    {% block script %}
-    {% endblock %}
-    
-    <div id="sidebar">
-        {% block sidebar %}
-        <ul>
-            <li><a href="/home">Home</a></li>
-            <li><a href="/college_ranking">College Ranking</a></li>
-            <li><a href="/department_ranking">Department Ranking</a></li>
-            <li><a href="/personal_profile">Personal Profile</a></li>
-        </ul>
-        {% endblock %}
-    </div>
+		<!--<script src = "http://code.jquery.com/jquery-2.1.3.min.js"></script>-->
+		<!--<script src = "/home/soumyadip/Desktop/js/bootstrap.js"></script>-->
+	</body>
 
-    <div id="content">
-        {% block content %}{% endblock %}
-    </div>
-</body>
 </html>

@@ -1,24 +1,25 @@
-<!DOCTYPE html>
-{% load staticfiles %}
-<html>
+{% extends "base.html" %}
 
-    <head>
-        <title>RAT</title>
-        <style>
-            table, th, td {
-                border: 1px solid black;
-            }
-        </style>
-    </head>
 
-    <body>
+{% block content %}
+<section class=" header section-paddding ">
+        <div class="background">
+            <div class= "container ">
+                <div class= "header-text">
+                    
+                    <br/>
+                    <br/>
+                    
+                    <h2>
+                        Visualization and Analysis of Results
+                    </h2>
+                </div>
+            </div>
+        </div>
+</section>
 
-    <a href="/college_ranking">College Ranking</a><br/>
-    <a href="/department_ranking">Department Ranking</a><br/>
-    <a href="/personal_profile">Your Personal Profile</a><br/>
-        <br/>
-        <br/>
-        
-    </body>
-
-</html>
+<div>
+    
+    
+</div>
+{% endblock %}

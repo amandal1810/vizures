@@ -37,7 +37,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rat',
-    'chartjs',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -83,6 +82,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
+
+#STATIC_PATH= os.path.join(BASE_DIR, 'static/')
+
+#STATIC_URL= STATIC_PATH
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+)
 
 TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')
 

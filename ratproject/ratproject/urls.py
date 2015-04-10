@@ -6,7 +6,7 @@ urlpatterns = patterns('',
     url(r'^home',views.home, name='home'),
     url(r'^personal/', views.personal, name='personal'),
     url(r'^college_ranking/', views.college_ranking, name='college_ranking'),
-    url(r'^department_ranking/', views.department_ranking, name='department_ranking'),
+    url(r'^department_ranking/(?P<dept_id>\w*)/$', views.department_ranking, name='department_ranking'),
     url(r'^personal_profile/', views.personal_profile, name='personal_profile'),
     
     

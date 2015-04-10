@@ -22,6 +22,10 @@ class Semester(models.Model):
     lab1 = models.CharField(max_length=50)
     lab2 = models.CharField(max_length=50)
     lab3 = models.CharField(max_length=50)
+    
+    #def __unicode__(self):
+    #    return str(self.sem)+" "+self.sub1+" "+self.sub2+" "+self.sub3+" "\
+    #+self.sub4+" "+self.sub5+" "+ self.lab1+ " " + self.lab2+ " "+ self.lab3
 
 class Marks(models.Model):
     reg_no = models.ForeignKey(Student)
@@ -39,6 +43,13 @@ class Marks(models.Model):
     sem_credits = models.IntegerField(default=0)
     total_credits = models.IntegerField(default=0)
     remarks = models.CharField(max_length=10)
+    
+    def __unicode__(self):
+        return str(self.sem)+" "+str(self.reg_no)+ " "+ str(self.sub1) +" "+str(self.sub2)+" "+str(self.sub3)+" "\
+    + str(self.sub4)+" "+str(self.sub5)+" "+ str(self.lab1) + " " + str(self.lab2)+ " "+ str(self.lab3) + " "\
+    + str(self.sgpa)+ " "+ str(self.cgpa)+ " "+ str(self.sem_credits)+ " "\
++ str(self.total_credits)+" "+ self.remarks
+
 
 #class Student(models.Model):
 #	name = models.CharField(max_length=60, blank=False)

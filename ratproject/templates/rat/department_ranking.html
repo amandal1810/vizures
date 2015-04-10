@@ -4,26 +4,15 @@
 
 {% block content %}
 
-<form action='{% url "department_ranking" %}' method='post'>
-                {% csrf_token %}
-                <select name='department'>
-                    <option value="CS">Computer Science and Engineering</option>
-                    <option value="EC">Electronics and Communications Engineering</option>
-                    <option value="IT">Information Technology</option>
-                    <option value="ME">Mechanical Engineering</option>
-                    <option value="CE">Civil Engineering</option>
-                    <option value="BT">Biotechnology</option>
-                    <option value="EE">Electrical Engineering</option>
-                    <option value="MM">Metallurgical and Materials Engineering</option>
-                    <option value="CH">Chemical Engineering</option>
-                </select>
-                <input type='submit' value='SUBMIT' />
-        </form>
-
 {% if ranks %}
+
+<br/>
+<br/>
+                
 <h1> {{department}} </h1>
 
-<table >
+<table class="table table-bordered table-hover" >
+<thead>
     <tr>
         <th>Rank</th>
         <th>Registration Number</th>
@@ -31,6 +20,8 @@
         <th>Roll Number</th>
         <th>CGPA</th>
     </tr>
+</thead>
+<tbody>
     {% for rank in ranks %}
     <tr>
         <td> {{rank.rank}} </td>
@@ -39,7 +30,8 @@
         <td> {{ rank.roll_no }} </td>
         <td> {{ rank.cgpa }} </td>
     </tr>
-    {% endfor %}
+{% endfor %}
+</tbody>
 </table>
 
 {% endif %}

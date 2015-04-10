@@ -11,7 +11,8 @@ csv_filepathname=os.path.join(base_dir,"csv/4_cs.csv")
 
 # Full path to your django project directory
 
-your_djangoproject_home=os.path.dirname(os.path.dirname(__file__))
+#your_djangoproject_home=os.path.dirname(os.path.dirname(__file__))
+your_djangoproject_home= os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 
@@ -22,7 +23,7 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'ratproject.settings'
 import django
 django.setup()
  
-from dbUpgrade.models import Student,Semester,Marks
+from rat.models import Student,Semester,Marks
  
 import csv
 dataReader = csv.reader(open(csv_filepathname), delimiter=',', quotechar='"')

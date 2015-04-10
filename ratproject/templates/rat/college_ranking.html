@@ -1,14 +1,18 @@
 {% extends "base.html" %}
 
+
 {% block title %} College Ranking {% endblock %}
 
 {% block content %}
     
     {% if ranks %}
-
+        
+<br/>
+<br/>
 <h1> College Ranking </h1>
 
-<table>
+<table class="table table-bordered table-hover">
+    <thead>
     <tr>
         <th>Rank</th>
         <th>Registration Number</th>
@@ -16,6 +20,9 @@
         <th>Roll Number</th>
         <th>CGPA</th>
     </tr>
+    </thead>
+    
+    <tbody>
     {% for rank in ranks %}
     <tr>
         <td> {{rank.rank}} </td>
@@ -24,7 +31,8 @@
         <td> {{ rank.roll_no }} </td>
         <td> {{ rank.cgpa }} </td>
     </tr>
-    {% endfor %}
+{% endfor %}
+</tbody>
 </table>
 {% endif %}
 

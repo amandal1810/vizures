@@ -6,23 +6,78 @@
 <br/>
 <br/>
 <br/>
+<br/>
+<br/>
+<br/>
 
-<form action='{% url "personal" %}' method='post'>
+<div class="container col-md-6 col-md-offset-4">            
+<form action='{% url "personal" %}' method='post' class="form-inline">
             {% csrf_token %}
-            <label for='text'>Enter you registration number : </label>
-            <input type='text' name='roll' />
+            <div class="form-group has-success">
+<!--                        <label for='text'>Enter you registration number  :</label>-->
+                        <input class="form-control input-lg" type='text' name='roll' placeholder="registration number" />
             <!-- always use name='roll' and not id='roll' -->
-            <input type='submit' value='SUBMIT' />
+            <!--            <input class="form-control" type='submit' value='SUBMIT' />-->
+                        <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+            </div>
 </form>
+</div>
 
+
+
+
+<br/>
+<br/>
+<br/>
 <div>
 
-{% if name %}
+{% if marks %}
         <ul>
-            <li>Name : {{name}}</li>
-            <li>Roll : {{roll}}</li>
-            <li>cgpa : {{cgpa}}</li>
-            <li>College ranking: {{college_ranking}} </li>
+            <h1 class="text-capitalize">{{marks.0.reg_no.name| lower}}</h1>
+            <h1 class="">Roll : {{marks.0.reg_no.roll_no}}</h1>
+            <h2 class="">CGPA : {{marks.0.reg_no.cgpa}}</h2>
+            <h2 class="">College Rank: {{college_rank}}</h2>
+            <h2 class="">Department Rank: {{department_rank}}</h2>
+            <br/><br/>
+            
+            {% for each_sem in marks %}
+                        {% if each_sem.sem.sem < 400 %}
+                        <h1 class="bg-primary">Third Semester</h1>
+                        <h2 class="bg-success">SGPA: {{each_sem.sgpa}}</h2>
+                        {% else %}
+                        <h1 class="bg-primary">Fourth Semester</h1>
+                        <h2 class="bg-success">SGPA: {{each_sem.sgpa}}</h2>
+            {% endif %}
+            <table class="table table-condensed table-hover">
+                                    <thead>
+                                    <tr class="active">
+                                                <th> {{each_sem.sem.sub1}} </th>
+                                                <th> {{each_sem.sem.sub2}} </th>
+                                                <th> {{each_sem.sem.sub3}} </th>
+                                                <th> {{each_sem.sem.sub4}} </th>
+                                                <th> {{each_sem.sem.sub5}} </th>
+                                                <th> {{each_sem.sem.lab1}} </th>
+                                                <th> {{each_sem.sem.lab2}} </th>
+                                                <th> {{each_sem.sem.lab3}} </th>
+                                    </tr>         
+                                    </thead>
+                                    <tbody>
+                                                <tr class="info">
+                                                <td>{{each_sem.sub1}}</td>
+                                                <td>{{each_sem.sub2}}</td>
+                                                <td>{{each_sem.sub3}}</td>
+                                                <td>{{each_sem.sub4}}</td>
+                                                <td>{{each_sem.sub5}}</td>
+                                                <td>{{each_sem.lab1}}</td>
+                                                <td>{{each_sem.lab2}}</td>
+                                                <td>{{each_sem.lab3}}</td>
+                                                </tr>
+                                    </tbody>
+                        </table>
+            <br>
+            <br>
+            {% endfor %}
+
         </ul>
 {% endif %}
 

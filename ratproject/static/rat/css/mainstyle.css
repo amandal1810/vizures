@@ -1,3 +1,5 @@
+
+
 @media (min-width: 1200px) {
     .navbar-inverse{
         max-width: 970px;
@@ -28,6 +30,7 @@
 -moz-background-size: cover;
 background-size: cover;
 -o-background-size: cover;
+
 
 }
 .navbar-default{

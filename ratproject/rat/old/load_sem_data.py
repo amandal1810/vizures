@@ -6,12 +6,13 @@ import os
 base_dir = os.path.dirname(__file__)
 
 
-csv_filepathname=os.path.join(base_dir,"csv/4_mme.csv")
+csv_filepathname=os.path.join(base_dir,"csv/4_cs.csv")
 
 
 # Full path to your django project directory
 
-your_djangoproject_home=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+#your_djangoproject_home=os.path.dirname(os.path.dirname(__file__))
+your_djangoproject_home= os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 
@@ -46,10 +47,7 @@ for row in dataReader:
         	marks=Marks()
         	student=Student.objects.get(pk=row[0])
         	print ("%d  %s  %s  %s  %f" %(student.reg_no,student.roll_no,student.name,student.department,student.cgpa))
-        	cg=row[31]
-        	cg=''.join(cg.split())
-        	
-        	student.cgpa=float(cg)
+        	student.cgpa=float(row[31])
         	
         	marks.reg_no=student
         	
@@ -62,20 +60,12 @@ for row in dataReader:
         	marks.lab1=row[19]
         	marks.lab2=row[22]
         	marks.lab3=row[25]
-        	
-        	sg=row[28]
-        	print (sg)
-        	sg=''.join(sg.split())
-        	#print (sg)
-        	marks.sgpa=float(sg)
-        	print "marks",marks.sgpa
-        	
-        	marks.cgpa=float(cg)
-        	
+        	marks.sgpa=float(row[28])
+        	marks.cgpa=float(row[31])
         	marks.sem_credits=row[27]
         	marks.total_credits=row[30]
         	marks.remarks=row[32]
-                
+
         	student.save()
 
         	marks.save()

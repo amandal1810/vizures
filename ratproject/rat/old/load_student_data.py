@@ -1,6 +1,7 @@
 # Full path and name to your csv file
 
-import sys,os
+
+import os
 
 base_dir = os.path.dirname(__file__)
 
@@ -10,10 +11,13 @@ csv_filepathname=os.path.join(base_dir,"csv/student_file.csv")
 
 # Full path to your django project directory
 
-your_djangoproject_home=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+your_djangoproject_home= os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-print (your_djangoproject_home)
+print csv_filepathname
+print "#",your_djangoproject_home
 
+
+import sys,os
 sys.path.append(your_djangoproject_home)
 
 os.environ['DJANGO_SETTINGS_MODULE'] = 'ratproject.settings'

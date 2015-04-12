@@ -1,4 +1,4 @@
-from django.shortcuts import render, render_to_response, get_object_or_404
+from django.shortcuts import render, render_to_response, get_object_or_404,get_list_or_404
 from rat.models import Student,Semester,Marks
 from django.http import HttpResponse
 import datetime
@@ -16,36 +16,93 @@ def get_student_obj(i,rk):
         return {'rank':rk+1,'reg_no':i.reg_no, 'name': i.name, 'roll_no':i.roll_no, 'cgpa': i.cgpa}
     
 
-ranks= [ get_student_obj(i,rk) for rk,i in enumerate(Student.objects.order_by('-cgpa').all()) ]
+college_ranks= [ get_student_obj(i,rk) for rk,i in enumerate(Student.objects.order_by('-cgpa').all()) ]
+
+
+def get_department_rankings(department_name):
+    
+    which_department= department_name
+    
+    regex= '\d\d/'+which_department+'/*'
+    department_ranks= [ get_student_obj(i,rk) for rk,i in enumerate(Student.objects.filter(roll_no__regex= regex).order_by('-cgpa'))]
+    
+    if department_ranks== 'CH':
+        regex= '\d\d/CHE/*'
+        department_ranks+=  [ get_student_obj(i,rk) for rk,i in enumerate(Student.objects.filter(roll_no__regex= regex).order_by('-cgpa'))]
+    
+    return department_ranks
+
+
+
+department_ranks={'CS': get_department_rankings('CS'),
+                  'EC': get_department_rankings('EC'),
+                  'EE': get_department_rankings('EE'),
+                  'ME': get_department_rankings('ME'),
+                  'MM': get_department_rankings('MM'),
+                  'IT': get_department_rankings('IT'),
+                  'CH': get_department_rankings('CH'),
+                  'BT': get_department_rankings('BT')}
 
 def personal(request):
     inp = request.POST.get('roll')
     #data = Student.objects.get(reg_no=inp)
-    marks= get_object_or_404(Marks,reg_no=inp)
+    marks= get_list_or_404(Marks,reg_no=inp)
 #    marks= Marks.objects.get_object_404(reg_no=inp)
     
+    print marks
+    
     if marks == None:
+        print "SHIT HAPPENED"
         return render(request,'rat/personal_profile.html')
         
-    print marks.reg_no.name
+    #print marks.reg_no.name
     
     college_rank=0
+    department_rank=0
     
-    for i in ranks:
+    for i in college_ranks:
         if i['reg_no']== int(inp):
             college_rank= i['rank']
     
-    print college_rank
+    if 'CS' in marks[0].reg_no.roll_no:
+        department= 'CS'
     
-    dic = {'name':marks.reg_no.name,'roll':marks.reg_no.roll_no,'cgpa':marks.reg_no.cgpa,
-           'college_ranking': college_rank,
-           }
+    if 'EC' in marks[0].reg_no.roll_no:
+        department= 'EC'
+    
+    if 'EE' in marks[0].reg_no.roll_no:
+        department= 'EE'
+        
+    if 'EE' in marks[0].reg_no.roll_no:
+        department= 'EE'
+        
+    if 'ME' in marks[0].reg_no.roll_no:
+        department= 'ME'
+        
+    if 'MM' in marks[0].reg_no.roll_no:
+        department= 'MM'
+        
+    if 'BT' in marks[0].reg_no.roll_no:
+        department= 'BT'
+        
+    if 'IT' in marks[0].reg_no.roll_no:
+        department= 'IT'
+    
+    for rank in department_ranks[department]:
+        if rank['reg_no']==int(inp):
+            department_rank= rank['rank']
+    
+    #dic = {'name':marks.reg_no.name,'roll':marks.reg_no.roll_no,'cgpa':marks.reg_no.cgpa,
+    #       'college_ranking': college_rank, 'semester':marks.sem.sem/100,'marks':marks,
+    #       }
+    
+    dic= {'marks':marks,'college_rank':college_rank,'department_rank':department_rank}
     return render(request,'rat/personal_profile.html', dic)
 
 def college_ranking(request):
     rk=0
     #ranks= [get_student_obj(i,rk) for rk,i in enumerate(Student.objects.order_by('-cgpa').all())]
-    paginator = Paginator(ranks,20)
+    paginator = Paginator(college_ranks,20)
     page= request.GET.get('page')
     try:
         rank_page = paginator.page(page)
@@ -60,8 +117,11 @@ def college_ranking(request):
     dic = {"ranks": rank_page}
     return render(request,'rat/college_ranking.html',dic)
 
+
+
 def department_ranking(request,dept_id):
     
+    global department_ranks
     #inp = request.POST.get('department')
     print "department",dept_id
     which_department= dept_id
@@ -72,12 +132,12 @@ def department_ranking(request,dept_id):
         return render(request,'rat/department_ranking.html',dic)
     
     regex= '\d\d/'+which_department+'/*'
-    ranks= [ get_student_obj(i,rk) for rk,i in enumerate(Student.objects.filter(roll_no__regex= regex).order_by('-cgpa'))]
+    department_ranks= [ get_student_obj(i,rk) for rk,i in enumerate(Student.objects.filter(roll_no__regex= regex).order_by('-cgpa'))]
     
-    if ranks== 'CH':
+    if department_ranks== 'CH':
         regex= '\d\d/CHE/*'
-        ranks+=  [ get_student_obj(i,rk) for rk,i in enumerate(Student.objects.filter(roll_no__regex= regex).order_by('-cgpa'))]
-    dic = {'ranks': ranks, 'department': which_department}
+        department_ranks+=  [ get_student_obj(i,rk) for rk,i in enumerate(Student.objects.filter(roll_no__regex= regex).order_by('-cgpa'))]
+    dic = {'ranks': department_ranks, 'department': which_department}
     return render(request,'rat/department_ranking.html',dic)
 
 def personal_profile(request):

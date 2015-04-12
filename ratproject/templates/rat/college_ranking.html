@@ -13,7 +13,7 @@
 
 <table class="table table-bordered table-hover">
     <thead>
-    <tr>
+    <tr class="active">
         <th>Rank</th>
         <th>Registration Number</th>
         <th>Name</th>
@@ -27,9 +27,9 @@
     <tr>
         <td> {{rank.rank}} </td>
         <td> {{ rank.reg_no }} </td>
-        <td> {{ rank.name }} </td>
+        <td> <b>{{ rank.name }}</b> </td>
         <td> {{ rank.roll_no }} </td>
-        <td> {{ rank.cgpa }} </td>
+        <td> <b>{{ rank.cgpa }}</b> </td>
     </tr>
 {% endfor %}
 </tbody>

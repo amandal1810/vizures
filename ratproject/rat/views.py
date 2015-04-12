@@ -16,23 +16,19 @@ def get_student_obj(i,rk):
         return {'rank':rk+1,'reg_no':i.reg_no, 'name': i.name, 'roll_no':i.roll_no, 'cgpa': i.cgpa}
     
 
-college_ranks= [ get_student_obj(i,rk) for rk,i in enumerate(Student.objects.order_by('-cgpa').all()) ]
-
-
 def get_department_rankings(department_name):
     
-    which_department= department_name
+    regex= '\d\d/'+department_name+'/*'
+    dp_ranks= [ get_student_obj(i,rk) for rk,i in enumerate(Student.objects.filter(roll_no__regex= regex).order_by('-cgpa'))]
     
-    regex= '\d\d/'+which_department+'/*'
-    department_ranks= [ get_student_obj(i,rk) for rk,i in enumerate(Student.objects.filter(roll_no__regex= regex).order_by('-cgpa'))]
-    
-    if department_ranks== 'CH':
+    if dp_ranks== 'CH':
         regex= '\d\d/CHE/*'
-        department_ranks+=  [ get_student_obj(i,rk) for rk,i in enumerate(Student.objects.filter(roll_no__regex= regex).order_by('-cgpa'))]
+        dp_ranks+=  [ get_student_obj(i,rk) for rk,i in enumerate(Student.objects.filter(roll_no__regex= regex).order_by('-cgpa'))]
     
-    return department_ranks
+    return dp_ranks
 
 
+college_ranks= [ get_student_obj(i,rk) for rk,i in enumerate(Student.objects.order_by('-cgpa').all()) ]
 
 department_ranks={'CS': get_department_rankings('CS'),
                   'EC': get_department_rankings('EC'),
@@ -41,7 +37,7 @@ department_ranks={'CS': get_department_rankings('CS'),
                   'MM': get_department_rankings('MM'),
                   'IT': get_department_rankings('IT'),
                   'CH': get_department_rankings('CH'),
-                  'BT': get_department_rankings('BT')}
+                  'BT': get_department_rankings('BT'),}
 
 def personal(request):
     inp = request.POST.get('roll')
@@ -52,7 +48,7 @@ def personal(request):
     print marks
     
     if marks == None:
-        print "SHIT HAPPENED"
+        print "SOMETHING BAD HAPPENED"
         return render(request,'rat/personal_profile.html')
         
     #print marks.reg_no.name
@@ -64,8 +60,13 @@ def personal(request):
         if i['reg_no']== int(inp):
             college_rank= i['rank']
     
+    department= 'CS'
+    
     if 'CS' in marks[0].reg_no.roll_no:
         department= 'CS'
+    
+    if 'CH' in marks[0].reg_no.roll_no:
+        department= 'CH'
     
     if 'EC' in marks[0].reg_no.roll_no:
         department= 'EC'
@@ -88,16 +89,24 @@ def personal(request):
     if 'IT' in marks[0].reg_no.roll_no:
         department= 'IT'
     
-    for rank in department_ranks[department]:
-        if rank['reg_no']==int(inp):
-            department_rank= rank['rank']
     
-    #dic = {'name':marks.reg_no.name,'roll':marks.reg_no.roll_no,'cgpa':marks.reg_no.cgpa,
-    #       'college_ranking': college_rank, 'semester':marks.sem.sem/100,'marks':marks,
-    #       }
-    
-    dic= {'marks':marks,'college_rank':college_rank,'department_rank':department_rank}
-    return render(request,'rat/personal_profile.html', dic)
+    print department
+    print inp
+    print isinstance(inp,str)
+    try:
+        #department_rank_list= department_ranks[department]
+        #
+        #for i in department_rank_list:
+        #    if i['reg_no']==int(inp):
+        #        department_rank= i['rank']
+        
+        #dic = {'name':marks.reg_no.name,'roll':marks.reg_no.roll_no,'cgpa':marks.reg_no.cgpa,
+        #       'college_ranking': college_rank, 'semester':marks.sem.sem/100,'marks':marks,
+        #       }
+        dic= {'marks':marks,'college_rank':college_rank,'department_rank':department_rank}
+        return render(request,'rat/personal_profile.html', dic)
+    except:
+        return HttpResponse("Something Bad happend! Sorry!")
 
 def college_ranking(request):
     rk=0
@@ -137,7 +146,17 @@ def department_ranking(request,dept_id):
     if department_ranks== 'CH':
         regex= '\d\d/CHE/*'
         department_ranks+=  [ get_student_obj(i,rk) for rk,i in enumerate(Student.objects.filter(roll_no__regex= regex).order_by('-cgpa'))]
-    dic = {'ranks': department_ranks, 'department': which_department}
+    
+    dept={'CS':'Computer Science and Engineering',
+          'EC': 'Electronics and Communications Engineering',
+          'ME': 'Mechanical Engineering',
+          'MM': 'Metallurgical and Materials Engineering',
+          'CH': 'Chemical Engineering',
+          'BT':'Biotechnology',
+          'EE':'Electrical Engineering',
+          'IT':'Information Technology',
+          'CE':'Civil Engineering'}
+    dic = {'ranks': department_ranks, 'department': dept[which_department]}
     return render(request,'rat/department_ranking.html',dic)
 
 def personal_profile(request):

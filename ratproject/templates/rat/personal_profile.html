@@ -15,7 +15,7 @@
             {% csrf_token %}
             <div class="form-group has-success">
 <!--                        <label for='text'>Enter you registration number  :</label>-->
-                        <input class="form-control input-lg" type='text' name='roll' placeholder="registration number" />
+                        <input class="form-control input-lg" type='text' name='roll' placeholder='registration number' />
             <!-- always use name='roll' and not id='roll' -->
             <!--            <input class="form-control" type='submit' value='SUBMIT' />-->
                         <button type="submit" class="btn btn-primary btn-lg">Submit</button>
@@ -34,10 +34,9 @@
 {% if marks %}
         <ul>
             <h1 class="text-capitalize">{{marks.0.reg_no.name| lower}}</h1>
-            <h1 class="">Roll : {{marks.0.reg_no.roll_no}}</h1>
-            <h2 class="">CGPA : {{marks.0.reg_no.cgpa}}</h2>
-            <h2 class="">College Rank: {{college_rank}}</h2>
-            <h2 class="">Department Rank: {{department_rank}}</h2>
+            <h3 class="">Roll : {{marks.0.reg_no.roll_no}}</h3>
+            <h3 class="">CGPA : {{marks.0.reg_no.cgpa}}</h3>
+            <h3 class="">College Rank: {{college_rank}}</h3>
             <br/><br/>
             
             {% for each_sem in marks %}
@@ -62,7 +61,7 @@
                                     </tr>         
                                     </thead>
                                     <tbody>
-                                                <tr class="info">
+                                                <tr class="success">
                                                 <td>{{each_sem.sub1}}</td>
                                                 <td>{{each_sem.sub2}}</td>
                                                 <td>{{each_sem.sub3}}</td>

@@ -13,22 +13,22 @@
 
 <table class="table table-bordered table-hover" >
 <thead>
-    <tr>
+    <tr class="active">
         <th>Rank</th>
         <th>Registration Number</th>
-        <th>Name</th>
+        <th><b>Name</b></th>
         <th>Roll Number</th>
-        <th>CGPA</th>
+        <th><b>CGPA</b></th>
     </tr>
 </thead>
 <tbody>
     {% for rank in ranks %}
-    <tr>
+    <tr class="">
         <td> {{rank.rank}} </td>
         <td> {{ rank.reg_no }} </td>
-        <td> {{ rank.name }} </td>
+        <td> <b>{{ rank.name }}</b></td>
         <td> {{ rank.roll_no }} </td>
-        <td> {{ rank.cgpa }} </td>
+        <td> <b>{{ rank.cgpa }}</b> </td>
     </tr>
 {% endfor %}
 </tbody>

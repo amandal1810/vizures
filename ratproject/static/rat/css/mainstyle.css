@@ -1,67 +1,12 @@
-
-
-@media (min-width: 1200px) {
-    .navbar-inverse{
-        max-width: 970px;
-    }
+body{
+    background-color: #F7FBFF
 }
 
- .navbar-default .navbar-nav li a:hover {
-	background-color: #843534;
-}
-.side-nav>li>ul {
-    padding: 0;
+
+h1,h2,h3{
+    font-family: 'Oswald', sans-serif;
 }
 
-.dropdown-menu>ul>li>a {
-    display: block;
-    padding: 10px 15px 10px 38px;
-    text-decoration: none;
-    color: #999;
+td,th,a{
+    font-family: 'Cabin', sans-serif;
 }
-
-.navbar-ex1-collapse>li>ul>li>a:hover {
-    color: #fff;
-}
-
-.full {
-  background: url('3024245-poster-p-1-6-must-read-book-recommendations-from-our-favorite-leaders.jpg') no-repeat center center fixed;
--webkit-background-size: cover;
--moz-background-size: cover;
-background-size: cover;
--o-background-size: cover;
-
-
-}
-.navbar-default{
-    border-width: 0px;
-    -webkit-box-shadow: 0px 0px;
-    box-shadow: 0px 0px;
-    background-color: rgba(0,0,0,0.0);
-    background-image: -webkit-gradient(linear, 50.00% 0.00%, 50.00% 100.00%, color-stop( 0% , rgba(0,0,0,0.00)),color-stop( 100% , rgba(0,0,0,0.00)));
-    background-image: -webkit-linear-gradient(270deg,rgba(0,0,0,0.00) 0%,rgba(0,0,0,0.00) 100%);
-    background-image: linear-gradient(180deg,rgba(0,0,0,0.00) 0%,rgba(0,0,0,0.00) 100%);
-}
-h1{ border-width: 0px;
-    -webkit-box-shadow: 0px 0px;
-    box-shadow: 0px 0px;
-    background-color: rgba(0,0,0,0.0);
-    background-image: -webkit-gradient(linear, 50.00% 0.00%, 50.00% 100.00%, color-stop( 0% , rgba(0,0,0,0.00)),color-stop( 100% , rgba(0,0,0,0.00)));
-    background-image: -webkit-linear-gradient(270deg,rgba(0,0,0,0.00) 0%,rgba(0,0,0,0.00) 100%);
-    background-image: linear-gradient(180deg,rgba(0,0,0,0.00) 0%,rgba(0,0,0,0.00) 100%);
-    }
-.jumbotron .container {
-   position: relative;
-  top:100px;
- }
-.jumbotron h1 {
-  color: black;
-  font-size: 48px;  
-  font-family: 'Shift', sans-serif;
-  font-weight: bold;
-}
-.jumbotron h3 {
-  font-size: 20px;
-  color: black;
-}
-

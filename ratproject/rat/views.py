@@ -5,13 +5,13 @@ import datetime
 from django.core.urlresolvers import reverse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
-#related to data
 
-
+#views for home page
 def home(request):
     return render(request,'rat/home.html',{})
 
 
+#return a dictionary using information of a student object
 def get_student_obj(i,rk):
         return {'rank':rk+1,'reg_no':i.reg_no, 'name': i.name, 'roll_no':i.roll_no, 'cgpa': i.cgpa}
     
@@ -91,22 +91,30 @@ def personal(request):
     
     
     print department
+    
+    inp = int(inp)
+    
     print inp
-    print isinstance(inp,str)
-    try:
-        #department_rank_list= department_ranks[department]
-        #
-        #for i in department_rank_list:
-        #    if i['reg_no']==int(inp):
-        #        department_rank= i['rank']
-        
-        #dic = {'name':marks.reg_no.name,'roll':marks.reg_no.roll_no,'cgpa':marks.reg_no.cgpa,
-        #       'college_ranking': college_rank, 'semester':marks.sem.sem/100,'marks':marks,
-        #       }
-        dic= {'marks':marks,'college_rank':college_rank,'department_rank':department_rank}
-        return render(request,'rat/personal_profile.html', dic)
-    except:
-        return HttpResponse("Something Bad happend! Sorry!")
+    
+    print inp.__class__
+    
+    department_rank_list= department_ranks[department]
+    
+    for i in department_rank_list:
+        print i.__class__
+        print i['reg_no'].__class__
+        print i['reg_no']
+        if i['reg_no']== inp:
+            department_rank= i['rank']
+            print "dep: ",department_rank
+            break
+    
+    #dic = {'name':marks.reg_no.name,'roll':marks.reg_no.roll_no,'cgpa':marks.reg_no.cgpa,
+    #       'college_ranking': college_rank, 'semester':marks.sem.sem/100,'marks':marks,
+    #       }
+    dic= {'marks':marks,'college_rank':college_rank,'department_rank':department_rank}
+    return render(request,'rat/personal_profile.html', dic)
+    
 
 def college_ranking(request):
     rk=0
